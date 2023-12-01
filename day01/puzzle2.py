@@ -1,50 +1,90 @@
-total_part1 = 0
-total_part2 = 0
+import re
+number = 2237
+lists = []
+max_ = float('-inf')
+summed = 0
+numbers = ['one' , 'two' , 'three' , 'four' , 'five' , 'six' , 'seven' , 'eight' , 'nine' ]
+digit_mapping = {
+    "one": "1",
+    "two": "2",
+    "three": "3",
+    "four": "4",
+    "five": "5",
+    "six": "6",
+    "seven": "7",
+    "eight": "8",
+    "nine": "9"
+}
+max_input = 1000
+
+
+with open('./input.txt', 'r') as f:
+    for inp in f:
  
-digit_words = {'one':'1', 'two':'2', 'three':'3', 'four':'4', 'five':'5', 'six':'6',
-'seven':'7', 'eight':'8', 'nine':'9'}
- 
-with open('input.txt', 'r') as f:
-    for line in f.readlines():
-        # part 1
-        digits = [char for char in line.strip() if char.isdigit()]
-        calib = int(digits[0] + digits[-1])
-        total_part1 += calib
- 
-        # part 2
-        s = line.strip()
- 
-        # first digit
-        first_digit = None
-        for i in range(len(s)):
-            if s[i].isdigit():
-                first_digit = s[i]
+        temp = ''
+        res = []
+        possible =[]
+        for i in numbers:
+            if i in inp:
+                possible.append([inp.index(i) , i])
+
+        first_  , last_ = [ ] , []
+        possible.sort(key=lambda x: x[0])
+        f , s = None , None
+        if possible:
+            first_  , last_ = possible[0] , possible[-1]
+            f , s = digit_mapping[first_[1]] + digit_mapping[last_[1]]
+    
+        for i in range(len(inp)):
+            curr = inp[i]
+            if curr.isdigit():
+                f = curr
+                if first_:
+                    indx , val = first_
+                    if indx < i:
+                        f = digit_mapping[val]
+                        break
                 break
-            for word in digit_words:
-                if s[i:].startswith(word):
-                    first_digit = digit_words[word]
-                    break
-            if first_digit:
-                break
- 
-        # last digit
-        last_digit = None
-        for i in range(len(s)-1, -1, -1):
-            if s[i].isdigit():
-                last_digit = s[i]
-                break
-            for word in digit_words:
-                if s[i:].startswith(word):
-                    last_digit = digit_words[word]
-                    break
-            if last_digit:
-                break
- 
-        calib = int(first_digit + last_digit)
-        total_part2 += calib
- 
-# part 1
-print(total_part1)
- 
-# part 2
-print(total_part2)
+            
+        
+                
+            
+                
+        for i in range(len(inp)-1 , -1 , -1):
+            curr = inp[i]
+            if curr.isdigit():
+               l = curr
+               if last_:
+                   indx , val = last_
+                   if indx > i:
+                        l = digit_mapping[val]
+                        break
+               break
+
+        
+        summed += int(f + l)
+        
+
+        
+        
+       
+            
+    
+
+    
+    
+    
+        
+        
+    
+
+       
+
+    
+        
+
+
+print(summed)
+        
+        
+    
