@@ -1,6 +1,6 @@
 grid = set()
 lists = []
-with open('./test.txt' ) as f:
+with open('./input.txt' ) as f:
     for inp in f:
         lists.append(inp[:-1])
 numbers = []
@@ -25,13 +25,16 @@ for r in range(len(lists)):
                             cc-=1
                         s.add((cr , cc))
                         start_indx.add((cr , cc))
+            print(s)
             if len(s) == 2:
                 pro = 1
-                for each in s:
-                    a , b = each
-                    pro *= int(lists[a][b])
+                for start_x , start_y in s:
+                    curr_num = ''
+                    while start_y < len(lists[0]) and lists[start_x][start_y].isdigit():
+                        curr_num += lists[start_x][start_y]
+                        start_y += 1
+                    pro *= int(curr_num)
                 res += pro
-
     
     
                     
@@ -39,14 +42,5 @@ print(res)
                     
 
                 
-print(start_indx)
 
-'''res = 0        
-for start_x , start_y in start_indx:
-    curr_num = ''
-    while start_y < len(lists[0]) and lists[start_x][start_y].isdigit():
-        curr_num += lists[start_x][start_y]
-        start_y+=1
-    res+=int(curr_num)
-print(res)
-'''
+
