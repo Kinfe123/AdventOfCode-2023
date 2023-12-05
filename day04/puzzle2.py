@@ -1,12 +1,12 @@
 res = 0
 max_tst , max_p = 6, 190
 
-with open('./test.txt') as f:
-    ans = [1]*max_tst
+with open('./input.txt') as f:
+    ans = [1]*max_p
     for inp in f:
         inp = inp.replace('\n', '')
         semi = inp.split(':')
-        print(ans)
+        
         cards = semi[1]
         piped = cards.split('|')
         card_num = int(semi[0].split()[1])
@@ -24,8 +24,8 @@ with open('./test.txt') as f:
                 score+=1
        
         if score:
-            for i in range(card_num+1 , card_num+score+1):
-                ans[i] += ans[card_num]
+            for i in range(card_num+1-1 , card_num+score+1-1):
+                ans[i] += ans[card_num-1]
         
             
             
