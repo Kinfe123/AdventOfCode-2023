@@ -47,7 +47,6 @@ for each in process:
     
     
        
-print(seeds)
 
 '''        
 for i in range(len(seeds)):
