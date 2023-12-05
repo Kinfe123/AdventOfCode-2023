@@ -1,50 +1,110 @@
-import sys
-from collections import *
-
-def main() -> None:
-    data = ''
-    with open('./input.txt' ,  'r') as f:
-        data = f.read()
-        
-        
 
 
-    seeds = list(map(int, data.split("\n")[0].split(": ")[1].split(" ")))
+plants = []
 
-    d = defaultdict(dict)
-    trgs = []
+with open('./test.txt') as f:
+    for inp in f:
+        plants.append(inp.replace('\n' , ''))
 
-    for sec in data.split("\n\n")[1:]:
-        lines = sec.split("\n")
+process = []
+for i in plants:
+    if i :
+        process.append(i)
 
-        parts = lines[0].split("-")
-        src = parts[0]
-        trg = parts[2].split(" ")[0]
 
-        d[src][trg] = []
-        trgs.append(trg)
+seeds = process[0]
+process = process[1:]
+t = seeds.split(':')[1][1:]
 
-        for line in lines[1:]:
-            if line:
+seeds = list(map(int , t.split(' ')))
+min_ = float('inf')
+print(seeds)
+for each in process:
+    nums = []
+    for i in each.splitlines():
+        if i[0].isdigit():
+            temp = list(map(int , i.split()))
+            nums.append(temp)
+    print(nums)
+    a  = []
+    for s in range(len(seeds)):
+        curr_seed = int(seeds[s])
+        s = False
+        for maps in nums:
             
-                trg_start, src_start, length = map(int, line.split(" "))
-                d[src][trg].append((trg_start, src_start, length))
+            dist , source , p = maps
+         
+            if source <= curr_seed < source + p:
+                r = curr_seed - source + dist
+                a.append(r)
+                min_ = min(min_ , r)
+                s = True
+                break
+        
+        else:
+            a.append(curr_seed)
+    seeds = a
+    
+    
+       
+print(seeds)
 
-    min_loc = 1e9
-    for seed in seeds:
-        current = "seed"
-        value = seed
+'''        
+for i in range(len(seeds)):
+    for each in process:
+        print(each)
+        s = False
+        if each[0].isdigit():
+            curr = list(map(int , each.split()))
+            dist , source , p = curr
+            if source <= int(seeds[i]) < source + p:
+                r = int(seeds[i]) - source
+                r  += dist
+                a.append(r)
+                min_ = min(min_ , r)
+                s = True
+                break
 
-        for trg in trgs:
-            for trg_start, src_start, length in d[current][trg]:
-                if src_start <= value < src_start + length:
-                    value = trg_start + (value - src_start)
-                    break
+        if not s:
+            a.append(int(seeds[i]))
+        seeds = a
+        print()
+'''   
+'''
+for i in range(len(process)):
+    curr = process[i]
+    if curr[0].isdigit():
+        process[i] = curr
+    else:
+        process[i] = ''
+process = [i for i in process if i]
+print('a' , process)
+min_ = float('inf')
+t = seeds.split(':')[1][1:]
+a = []
+seeds = list(map(int , t.split(' ')))
+print(process)
+for i in range(len(seeds)):
+    s = False
+    for j in range(len(process)):
+        dist , source , p = process[j]
+        if source <= int(seeds[i]) < source + p:
+            r = int(seeds[i]) - source
+            r  += dist
+            a.append(r)
+            min_ = min(min_ , r)
+            s = True
+            break
 
-            current = trg
+    if not s:
+        a.append(int(seeds[i]))
+    print(a , 'a')
+    seeds = a
 
-        min_loc = min(min_loc, value)
+print(seeds)
 
-    print(min_loc)
+'''
+print(min_)
 
-main()
+
+        
