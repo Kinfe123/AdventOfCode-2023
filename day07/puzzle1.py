@@ -10,7 +10,12 @@ process.sort(key= lambda x: len(set(x[0])))
 def get_score(item):
     hand, bid = item
 
-    counts = list(Counter(hand).values())
+    counts = sorted(list(Counter(hand.replace("J", "")).values()))
+
+    if len(counts) > 0:
+        counts[-1] += hand.count("J")
+    else:
+        counts.append(5)
     if 5 in counts:
         type = 6
     elif 4 in counts:
@@ -30,7 +35,7 @@ def get_score(item):
     else:
         type = 0
 
-    values = list(map("23456789TJQKA".index, hand))
+    values = list(map("J23456789TJQKA".index, hand))
 
     return (type, values)
 
