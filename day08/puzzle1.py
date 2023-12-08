@@ -4,7 +4,7 @@ mapper = defaultdict(list)
 
 sq = ''
 process = []
-with open('./test.txt') as f:
+with open('./input.txt') as f:
     for inp in f:
         if inp and inp != '\n':
             process.append(inp.replace('\n'  , ''))
