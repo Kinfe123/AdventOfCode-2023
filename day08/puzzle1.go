@@ -83,7 +83,7 @@ func main() {
 			temp = 1
 		}
 
-		fmt.Println(mapper[startNode] , startNode)
+		fmt.Println(mapper[startNode] , startNode )
 		startNode = mapper[startNode][temp]
 		sq_t++
 		sq_t %= len(sq)
