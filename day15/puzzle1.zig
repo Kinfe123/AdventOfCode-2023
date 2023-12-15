@@ -29,15 +29,15 @@ pub fn main() !void {
     var summ: u32 = 0;
     while (each.next()) |word| {
         for (word) |i| {
-            print(i , .{});
+            print({} , .{i});
             summ += @as(u32, i);
             summ *= 17;
             summ %= 256;
         }
     }
-    print(summ , .{});
+    print("{}" , .{summ});
 
-    print("Teh data: {s}", .{data});
+  
 }
 
 // Useful stdlib functions
