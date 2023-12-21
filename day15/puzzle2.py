@@ -10,11 +10,8 @@ with open('./input.txt') as f:
             label, length = step.split("=")
             length = int(length)
 
-            v = 0
-            for ch in label:
-                v += ord(ch)
-                v *= 17
-                v %= 256
+            v = hash(label)
+          
 
             for arr in boxes[v]:
                 if arr[0] == label:
@@ -25,12 +22,8 @@ with open('./input.txt') as f:
         elif step.endswith("-"):
             label = step[:-1]
 
-            v = 0
-            for ch in label:
-                v += ord(ch)
-                v *= 17
-                v %= 256
-
+            v = hash(label)
+            
             boxes[v] = [arr for arr in boxes[v] if arr[0] != label]
         
 t = 0

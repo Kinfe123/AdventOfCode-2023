@@ -24,8 +24,6 @@ def solve(config, nums):
     return result
 
 res = 0
-
-
 with open('./input.txt') as f:
     for inp in f:
         # do the stuff here
