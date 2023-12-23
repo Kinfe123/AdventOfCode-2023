@@ -15,6 +15,9 @@ seen = set()
 garden = defaultdict(set)
 queue = []
 
+
+
+
 for y in range(height):
     for x in range(width):
         if grid[y][x] == "S":
@@ -52,6 +55,4 @@ while steps != 26501365:
     steps += width
 
 print(score)
-
-print(len(garden[64]))
 
