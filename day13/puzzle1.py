@@ -8,7 +8,7 @@ def generate(grid):
     ans = 0
     part2 = True
     for c in range(C-1):
-        badness = 0
+        test = 0
         for dc in range(C):
             left = c-dc
             right = c+1+dc
@@ -16,19 +16,19 @@ def generate(grid):
                 for r in range(R):
                     if grid[r][left] != grid[r][right]:
                                 
-                        badness += 1
-        if badness == (1 if part2 else 0):
+                        test += 1
+        if test == (1 if part2 else 0):
             ans += c+1
     for r in range(R-1): 
-        badness = 0
+        test = 0
         for dr in range(R):  
             up = r-dr
             down = r+1+dr
             if 0<=up and up < down and down<R:
                 for c in range(C):
                     if grid[up][c] != grid[down][c]:
-                        badness +=1
-        if badness ==(1 if part2 else 0):
+                        test +=1
+        if test ==(1 if part2 else 0):
             ans += 100*(r+1)
 
 

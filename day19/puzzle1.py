@@ -1,39 +1,52 @@
-from collections import defaultdict
-memo = defaultdict(tuple)
+block1 , block2 = [] , []
 
-def solve(config, nums):
-    if config == "":
-        return 1 if nums == () else 0
-
-    if nums == ():
-        return 0 if "#" in config else 1
-
-    if (config , nums) in memo:
-        return memo[(config , nums)]
-    result = 0
-    
-    if config[0] in ".?":
-        result += solve(config[1:], nums)
-        
-    if config[0] in "#?":
-        if nums[0] <= len(config) and "." not in config[:nums[0]] and (nums[0] == len(config) or config[nums[0]] != "#"):
-            result += solve(config[nums[0] + 1:], nums[1:])
-
-
-    memo[(config , nums)] = result 
-    return result
-
-res = 0
 with open('./input.txt') as f:
-    for inp in f:
-        # do the stuff here
-
-        curr_inp = inp.replace('\n' , '')
-        config , seq = curr_inp.split(' ')
-        seq = tuple(map(int , seq.split(',')))
-        config = "?".join([config]*5)
-        seq*=5
-        res+=solve(config , seq)
-print(res)
+    block1 , block2 = f.read().split('\n\n')
 
 
+print(block1 , block2)
+
+    
+workflows = {}
+
+for line in block1.splitlines():
+    name, rest = line[:-1].split("{")
+    rules = rest.split(",")
+    workflows[name] = ([], rules.pop())
+    for rule in rules:
+        comparison, target = rule.split(":")
+        key = comparison[0]
+        cmp = comparison[1]
+        n = int(comparison[2:])
+        workflows[name][0].append((key, cmp, n, target))
+
+ops = {
+    ">": int.__gt__,
+    "<": int.__lt__
+}
+
+def accept(item, name = "in"):
+    if name == "R":
+        return False
+    if name == "A":
+        return True
+
+    rules, fallback = workflows[name]
+    
+    for key, cmp, n, target in rules:
+        if ops[cmp](item[key], n):
+            return accept(item, target)
+    
+    return accept(item, fallback)
+
+total = 0
+
+for line in block2.splitlines():
+    item = {}
+    for segment in line[1:-1].split(","):
+        ch, n = segment.split("=")
+        item[ch] = int(n)
+    if accept(item):
+        total += sum(item.values())
+
+print(total)
