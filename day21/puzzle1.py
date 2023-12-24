@@ -28,26 +28,21 @@ while len(queue) > 0:
 
     seen.add((x, y, step))
 
-   
+    if x < 0 or x >= width or y < 0 or y >= height:
+        continue
 
-    if grid[y % height][x % width] in ".S":
-        if (step - 65) % 131 == 0:
-            garden[step].add((x, y))
+    if grid[y][x] in ".S":
+        garden[step].add((x, y))
     else:
         continue
 
-    if step == 327:
+    if step == 64:
         continue
 
     for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
-        queue.append((x + dx, y + dy, step + 1))
+            queue.append((x + dx, y + dy, step + 1))
 
-steps = 327
-score = len(garden[steps])
-increment = len(garden[steps]) - len(garden[steps - width])
-while steps != 26501365:
-    increment += 30188
-    score += increment
-    steps += width
-print(score)
+    
+
+print(len(garden[64]))
 
